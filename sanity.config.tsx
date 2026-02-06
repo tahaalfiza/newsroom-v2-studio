@@ -4,14 +4,20 @@ import { schemaTypes } from "./schemas";
 
 const FRONTEND_URL = "https://newsroom-v2.vercel.app";
 
-function ArticlePreview({ document }: { document: { displayed: any } }) {
-  const id = document?.displayed?._id?.replace("drafts.", "");
-  if (!id)
+// Singleton types — should only ever have one document each
+const SINGLETON_TYPES = new Set(["introBanner", "reportersDesk", "about"]);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ArticlePreview(props: any) {
+  const doc = props?.document?.displayed;
+  const id = doc?._id?.replace("drafts.", "");
+  if (!id) {
     return (
-      <div style={{ padding: 20, fontFamily: "sans-serif" }}>
+      <div style={{ padding: 20, fontFamily: "sans-serif", textAlign: "right" }}>
         احفظ المقال أولاً لرؤية المعاينة
       </div>
     );
+  }
   return (
     <iframe
       src={`${FRONTEND_URL}/articles/${id}`}
@@ -32,6 +38,7 @@ export default defineConfig({
         S.list()
           .title("المحتوى")
           .items([
+            // Articles — list with preview pane
             S.listItem()
               .title("مقالات")
               .schemaType("article")
@@ -50,13 +57,65 @@ export default defineConfig({
                       ])
                   )
               ),
-            ...S.documentTypeListItems().filter(
-              (item) => item.getId() !== "article"
-            ),
+
+            S.divider(),
+
+            // Categories — normal list
+            S.listItem()
+              .title("التصنيفات")
+              .schemaType("category")
+              .child(
+                S.documentTypeList("category").title("التصنيفات")
+              ),
+
+            // Authors — normal list
+            S.listItem()
+              .title("الكتّاب")
+              .schemaType("author")
+              .child(
+                S.documentTypeList("author").title("الكتّاب")
+              ),
+
+            S.divider(),
+
+            // Intro Banner — list (user clicks into the single document)
+            S.listItem()
+              .title("بانر المقدمة")
+              .schemaType("introBanner")
+              .child(
+                S.documentTypeList("introBanner").title("بانر المقدمة")
+              ),
+
+            // Reporters Desk — list
+            S.listItem()
+              .title("مكتب المراسلين")
+              .schemaType("reportersDesk")
+              .child(
+                S.documentTypeList("reportersDesk").title("مكتب المراسلين")
+              ),
+
+            // About — list
+            S.listItem()
+              .title("من نحن")
+              .schemaType("about")
+              .child(
+                S.documentTypeList("about").title("من نحن")
+              ),
           ]),
     }),
   ],
   schema: {
     types: schemaTypes,
+  },
+  document: {
+    // Hide singleton types from the "new document" menu
+    newDocumentOptions: (prev, { creationContext }) => {
+      if (creationContext.type === "global") {
+        return prev.filter(
+          (option) => !SINGLETON_TYPES.has(option.templateId)
+        );
+      }
+      return prev;
+    },
   },
 });
