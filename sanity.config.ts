@@ -5,7 +5,7 @@ import { schemaTypes } from "./schemas";
 export default defineConfig({
   name: "newsroom-v2",
   title: "غرفة الأخبار",
-  projectId: "<YOUR_PROJECT_ID>",
+  projectId: "3pzdmaav",
   dataset: "production",
   plugins: [structureTool()],
   schema: {
