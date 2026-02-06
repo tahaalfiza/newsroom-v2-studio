@@ -13,8 +13,8 @@ function ArticlePreview(props: any) {
   const id = doc?._id?.replace("drafts.", "");
   if (!id) {
     return (
-      <div style={{ padding: 20, fontFamily: "sans-serif", textAlign: "right" }}>
-        احفظ المقال أولاً لرؤية المعاينة
+      <div style={{ padding: 20, fontFamily: "sans-serif" }}>
+        Save the article first to see preview
       </div>
     );
   }
@@ -22,14 +22,14 @@ function ArticlePreview(props: any) {
     <iframe
       src={`${FRONTEND_URL}/articles/${id}`}
       style={{ width: "100%", height: "100%", border: "none" }}
-      title="معاينة المقال"
+      title="Article Preview"
     />
   );
 }
 
 export default defineConfig({
   name: "newsroom-v2",
-  title: "غرفة الأخبار",
+  title: "Newsroom",
   projectId: "3pzdmaav",
   dataset: "production",
   plugins: [
@@ -37,17 +37,16 @@ export default defineConfig({
       structure: (S) =>
         S.list()
           .id("root")
-          .title("المحتوى")
+          .title("Content")
           .items([
-            // Articles — list with preview pane
             S.listItem()
               .id("articles")
-              .title("مقالات")
+              .title("Articles")
               .schemaType("article")
               .child(
                 S.documentTypeList("article")
                   .id("article-list")
-                  .title("مقالات")
+                  .title("Articles")
                   .child((documentId) =>
                     S.document()
                       .id(`article-${documentId.replace(/[^a-zA-Z0-9_-]/g, "_")}`)
@@ -58,67 +57,61 @@ export default defineConfig({
                         S.view
                           .component(ArticlePreview)
                           .id("preview")
-                          .title("معاينة"),
+                          .title("Preview"),
                       ])
                   )
               ),
 
             S.divider(),
 
-            // Categories — normal list
             S.listItem()
               .id("categories")
-              .title("التصنيفات")
+              .title("Categories")
               .schemaType("category")
               .child(
-                S.documentTypeList("category").id("category-list").title("التصنيفات")
+                S.documentTypeList("category").id("category-list").title("Categories")
               ),
 
-            // Authors — normal list
             S.listItem()
               .id("authors")
-              .title("الكتّاب")
+              .title("Authors")
               .schemaType("author")
               .child(
-                S.documentTypeList("author").id("author-list").title("الكتّاب")
+                S.documentTypeList("author").id("author-list").title("Authors")
               ),
 
             S.divider(),
 
-            // Intro Banner
             S.listItem()
               .id("intro-banner")
-              .title("بانر المقدمة")
+              .title("Intro Banner")
               .schemaType("introBanner")
               .child(
-                S.documentTypeList("introBanner").id("introBanner-list").title("بانر المقدمة")
+                S.documentTypeList("introBanner").id("introBanner-list").title("Intro Banner")
               ),
 
-            // Reporters Desk
             S.listItem()
               .id("reporters-desk")
-              .title("مكتب المراسلين")
+              .title("Reporters Desk")
               .schemaType("reportersDesk")
               .child(
-                S.documentTypeList("reportersDesk").id("reportersDesk-list").title("مكتب المراسلين")
+                S.documentTypeList("reportersDesk").id("reportersDesk-list").title("Reporters Desk")
               ),
 
-            // About
             S.listItem()
               .id("about")
-              .title("من نحن")
+              .title("About")
               .schemaType("about")
               .child(
-                S.documentTypeList("about").id("about-list").title("من نحن")
+                S.documentTypeList("about").id("about-list").title("About")
               ),
 
-            // Social Links
             S.listItem()
               .id("social-links")
-              .title("روابط التواصل")
+              .title("Social Links")
               .schemaType("socialLinks")
               .child(
-                S.documentTypeList("socialLinks").id("socialLinks-list").title("روابط التواصل")
+                S.documentTypeList("socialLinks").id("socialLinks-list").title("Social Links")
               ),
           ]),
     }),
@@ -127,7 +120,6 @@ export default defineConfig({
     types: schemaTypes,
   },
   document: {
-    // Hide singleton types from the "new document" menu
     newDocumentOptions: (prev, { creationContext }) => {
       if (creationContext.type === "global") {
         return prev.filter(

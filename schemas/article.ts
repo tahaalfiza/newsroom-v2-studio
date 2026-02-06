@@ -2,45 +2,45 @@ import { defineType, defineField } from "sanity";
 
 export default defineType({
   name: "article",
-  title: "مقال",
+  title: "Article",
   type: "document",
   fields: [
     defineField({
       name: "title",
-      title: "العنوان",
+      title: "Title",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "content",
-      title: "المحتوى",
+      title: "Content",
       type: "array",
       of: [
         {
           type: "block",
           styles: [
-            { title: "عادي", value: "normal" },
-            { title: "عنوان 1", value: "h1" },
-            { title: "عنوان 2", value: "h2" },
-            { title: "عنوان 3", value: "h3" },
-            { title: "اقتباس", value: "blockquote" },
+            { title: "Normal", value: "normal" },
+            { title: "H1", value: "h1" },
+            { title: "H2", value: "h2" },
+            { title: "H3", value: "h3" },
+            { title: "Quote", value: "blockquote" },
           ],
           marks: {
             decorators: [
-              { title: "غامق", value: "strong" },
-              { title: "مائل", value: "em" },
-              { title: "تحته خط", value: "underline" },
+              { title: "Bold", value: "strong" },
+              { title: "Italic", value: "em" },
+              { title: "Underline", value: "underline" },
             ],
             annotations: [
               {
                 name: "link",
                 type: "object",
-                title: "رابط",
+                title: "Link",
                 fields: [
                   {
                     name: "href",
                     type: "url",
-                    title: "الرابط",
+                    title: "URL",
                     validation: (Rule: any) =>
                       Rule.uri({
                         allowRelative: true,
@@ -50,7 +50,7 @@ export default defineType({
                   {
                     name: "blank",
                     type: "boolean",
-                    title: "فتح في نافذة جديدة",
+                    title: "Open in new tab",
                     initialValue: true,
                   },
                 ],
@@ -58,8 +58,8 @@ export default defineType({
             ],
           },
           lists: [
-            { title: "قائمة نقطية", value: "bullet" },
-            { title: "قائمة رقمية", value: "number" },
+            { title: "Bullet", value: "bullet" },
+            { title: "Numbered", value: "number" },
           ],
         },
         {
@@ -69,53 +69,52 @@ export default defineType({
             {
               name: "alt",
               type: "string",
-              title: "نص بديل",
+              title: "Alt text",
             },
             {
               name: "caption",
               type: "string",
-              title: "تعليق",
+              title: "Caption",
             },
           ],
         },
         {
           name: "tweetEmbed",
           type: "object",
-          title: "تغريدة",
+          title: "Tweet",
           fields: [
             {
               name: "tweetId",
               type: "string",
-              title: "معرف التغريدة",
-              description:
-                "الصق رابط التغريدة أو المعرف الرقمي مثال: 1234567890123456789",
+              title: "Tweet ID",
+              description: "Paste the tweet URL or numeric ID e.g. 1234567890123456789",
               validation: (Rule: any) => Rule.required(),
             },
           ],
           preview: {
             select: { title: "tweetId" },
             prepare({ title }: { title: string }) {
-              return { title: `تغريدة: ${title}` };
+              return { title: `Tweet: ${title}` };
             },
           },
         },
         {
           name: "youtubeEmbed",
           type: "object",
-          title: "يوتيوب",
+          title: "YouTube",
           fields: [
             {
               name: "videoId",
               type: "string",
-              title: "معرف الفيديو",
-              description: "مثال: dQw4w9WgXcQ",
+              title: "Video ID",
+              description: "e.g. dQw4w9WgXcQ",
               validation: (Rule: any) => Rule.required(),
             },
           ],
           preview: {
             select: { title: "videoId" },
             prepare({ title }: { title: string }) {
-              return { title: `يوتيوب: ${title}` };
+              return { title: `YouTube: ${title}` };
             },
           },
         },
@@ -127,13 +126,13 @@ export default defineType({
             {
               name: "videoId",
               type: "string",
-              title: "معرف الفيديو",
+              title: "Video ID",
               validation: (Rule: any) => Rule.required(),
             },
             {
               name: "options",
               type: "string",
-              title: "خيارات إضافية",
+              title: "Extra options",
             },
           ],
           preview: {
@@ -151,7 +150,7 @@ export default defineType({
             {
               name: "url",
               type: "url",
-              title: "رابط SoundCloud",
+              title: "SoundCloud URL",
               validation: (Rule: any) => Rule.required(),
             },
           ],
@@ -166,48 +165,48 @@ export default defineType({
     }),
     defineField({
       name: "legacyContent",
-      title: "المحتوى القديم (HTML)",
+      title: "Legacy Content (HTML)",
       type: "text",
       hidden: true,
-      description: "محتوى HTML القديم - يستخدم فقط للمقالات التي لم تُحوَّل بعد",
+      description: "Old HTML content - only used for articles not yet converted",
     }),
     defineField({
       name: "type",
-      title: "النوع",
+      title: "Type",
       type: "string",
       options: {
         list: [
-          { title: "خبر", value: "خبر" },
-          { title: "مقال", value: "مقال" },
-          { title: "تحقيق", value: "تحقيق" },
-          { title: "رأي", value: "رأي" },
-          { title: "تقرير", value: "تقرير" },
-          { title: "نشرة", value: "نشرة" },
-          { title: "ترجمة", value: "ترجمة" },
+          { title: "News", value: "\u062E\u0628\u0631" },
+          { title: "Article", value: "\u0645\u0642\u0627\u0644" },
+          { title: "Investigation", value: "\u062A\u062D\u0642\u064A\u0642" },
+          { title: "Opinion", value: "\u0631\u0623\u064A" },
+          { title: "Report", value: "\u062A\u0642\u0631\u064A\u0631" },
+          { title: "Newsletter", value: "\u0646\u0634\u0631\u0629" },
+          { title: "Translation", value: "\u062A\u0631\u062C\u0645\u0629" },
         ],
       },
     }),
     defineField({
       name: "isFeatured",
-      title: "مميز",
+      title: "Featured",
       type: "boolean",
       initialValue: false,
     }),
     defineField({
       name: "cover",
-      title: "صورة الغلاف",
+      title: "Cover Image",
       type: "image",
       options: { hotspot: true },
     }),
     defineField({
       name: "categories",
-      title: "التصنيفات",
+      title: "Categories",
       type: "array",
       of: [{ type: "reference", to: [{ type: "category" }] }],
     }),
     defineField({
       name: "author",
-      title: "الكاتب",
+      title: "Author",
       type: "reference",
       to: [{ type: "author" }],
     }),
@@ -228,7 +227,7 @@ export default defineType({
   },
   orderings: [
     {
-      title: "تاريخ الإنشاء (الأحدث)",
+      title: "Created (Newest)",
       name: "createdAtDesc",
       by: [{ field: "_createdAt", direction: "desc" }],
     },

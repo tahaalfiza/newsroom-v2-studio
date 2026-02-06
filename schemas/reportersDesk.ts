@@ -2,29 +2,29 @@ import { defineType, defineField } from "sanity";
 
 export default defineType({
   name: "reportersDesk",
-  title: "مكتب المراسلين",
+  title: "Reporters Desk",
   type: "document",
   fields: [
     defineField({
       name: "title",
-      title: "العنوان",
+      title: "Title",
       type: "string",
     }),
     defineField({
       name: "description",
-      title: "الوصف",
+      title: "Description",
       type: "text",
     }),
     defineField({
       name: "reporters_desk",
-      title: "محتوى المراسلين",
+      title: "Reporters Desk Content",
       type: "array",
       of: [
         {
           type: "object",
           fields: [
-            { name: "title", title: "العنوان", type: "string" },
-            { name: "description", title: "الوصف", type: "text" },
+            { name: "title", title: "Title", type: "string" },
+            { name: "description", title: "Description", type: "text" },
           ],
         },
       ],

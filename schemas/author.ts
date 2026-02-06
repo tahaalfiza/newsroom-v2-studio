@@ -2,18 +2,18 @@ import { defineType, defineField } from "sanity";
 
 export default defineType({
   name: "author",
-  title: "كاتب",
+  title: "Author",
   type: "document",
   fields: [
     defineField({
       name: "name",
-      title: "الاسم",
+      title: "Name",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "bio",
-      title: "نبذة",
+      title: "Bio",
       type: "text",
     }),
   ],
