@@ -54,9 +54,10 @@ export default defineConfig({
                       .documentId(documentId)
                       .schemaType("article")
                       .views([
-                        S.view.form(),
+                        S.view.form().id("editor"),
                         S.view
                           .component(ArticlePreview)
+                          .id("preview")
                           .title("معاينة"),
                       ])
                   )
