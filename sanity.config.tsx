@@ -36,17 +36,21 @@ export default defineConfig({
     structureTool({
       structure: (S) =>
         S.list()
+          .id("root")
           .title("المحتوى")
           .items([
             // Articles — list with preview pane
             S.listItem()
+              .id("articles")
               .title("مقالات")
               .schemaType("article")
               .child(
                 S.documentTypeList("article")
+                  .id("article-list")
                   .title("مقالات")
                   .child((documentId) =>
                     S.document()
+                      .id(`article-${encodeURIComponent(documentId)}`)
                       .documentId(documentId)
                       .schemaType("article")
                       .views([
@@ -62,52 +66,58 @@ export default defineConfig({
 
             // Categories — normal list
             S.listItem()
+              .id("categories")
               .title("التصنيفات")
               .schemaType("category")
               .child(
-                S.documentTypeList("category").title("التصنيفات")
+                S.documentTypeList("category").id("category-list").title("التصنيفات")
               ),
 
             // Authors — normal list
             S.listItem()
+              .id("authors")
               .title("الكتّاب")
               .schemaType("author")
               .child(
-                S.documentTypeList("author").title("الكتّاب")
+                S.documentTypeList("author").id("author-list").title("الكتّاب")
               ),
 
             S.divider(),
 
-            // Intro Banner — list (user clicks into the single document)
+            // Intro Banner
             S.listItem()
+              .id("intro-banner")
               .title("بانر المقدمة")
               .schemaType("introBanner")
               .child(
-                S.documentTypeList("introBanner").title("بانر المقدمة")
+                S.documentTypeList("introBanner").id("introBanner-list").title("بانر المقدمة")
               ),
 
-            // Reporters Desk — list
+            // Reporters Desk
             S.listItem()
+              .id("reporters-desk")
               .title("مكتب المراسلين")
               .schemaType("reportersDesk")
               .child(
-                S.documentTypeList("reportersDesk").title("مكتب المراسلين")
+                S.documentTypeList("reportersDesk").id("reportersDesk-list").title("مكتب المراسلين")
               ),
 
-            // About — list
+            // About
             S.listItem()
+              .id("about")
               .title("من نحن")
               .schemaType("about")
               .child(
-                S.documentTypeList("about").title("من نحن")
+                S.documentTypeList("about").id("about-list").title("من نحن")
               ),
 
             // Social Links
             S.listItem()
+              .id("social-links")
               .title("روابط التواصل")
               .schemaType("socialLinks")
               .child(
-                S.documentTypeList("socialLinks").title("روابط التواصل")
+                S.documentTypeList("socialLinks").id("socialLinks-list").title("روابط التواصل")
               ),
           ]),
     }),
