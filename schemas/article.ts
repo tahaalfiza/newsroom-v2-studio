@@ -187,6 +187,31 @@ export default defineType({
       },
     }),
     defineField({
+      name: "publishDate",
+      title: "Publish Date",
+      type: "datetime",
+      description: "Choose a publish date. If empty, the creation date is used.",
+    }),
+    defineField({
+      name: "source",
+      title: "Source",
+      type: "object",
+      fields: [
+        {
+          name: "label",
+          title: "Label",
+          type: "string",
+          description: "Source name displayed on the article",
+        },
+        {
+          name: "url",
+          title: "URL",
+          type: "url",
+          description: "Optional link to the original source",
+        },
+      ],
+    }),
+    defineField({
       name: "isFeatured",
       title: "Featured",
       type: "boolean",
