@@ -50,7 +50,7 @@ export default defineConfig({
                   .title("مقالات")
                   .child((documentId) =>
                     S.document()
-                      .id(`article-${encodeURIComponent(documentId)}`)
+                      .id(`article-${documentId.replace(/[^a-zA-Z0-9_-]/g, "_")}`)
                       .documentId(documentId)
                       .schemaType("article")
                       .views([
