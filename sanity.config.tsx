@@ -5,7 +5,7 @@ import { schemaTypes } from "./schemas";
 const FRONTEND_URL = "https://newsroom-v2.vercel.app";
 
 // Singleton types — should only ever have one document each
-const SINGLETON_TYPES = new Set(["introBanner", "reportersDesk", "about"]);
+const SINGLETON_TYPES = new Set(["introBanner", "reportersDesk", "about", "socialLinks"]);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ArticlePreview(props: any) {
@@ -100,6 +100,14 @@ export default defineConfig({
               .schemaType("about")
               .child(
                 S.documentTypeList("about").title("من نحن")
+              ),
+
+            // Social Links
+            S.listItem()
+              .title("روابط التواصل")
+              .schemaType("socialLinks")
+              .child(
+                S.documentTypeList("socialLinks").title("روابط التواصل")
               ),
           ]),
     }),

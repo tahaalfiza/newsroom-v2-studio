@@ -4,6 +4,7 @@ import author from "./author";
 import introBanner from "./introBanner";
 import reportersDesk from "./reportersDesk";
 import about from "./about";
+import socialLinks from "./socialLinks";
 
 export const schemaTypes = [
   article,
@@ -12,4 +13,5 @@ export const schemaTypes = [
   introBanner,
   reportersDesk,
   about,
+  socialLinks,
 ];
